@@ -46,7 +46,7 @@
     "@types/chai": "^3.4.35",
     "@types/mocha": "^2.2.39",
     "@types/pixi.js": "^4.1.1",
-    "@types/sinon": "^1.16.35",
+    "@types/sinon": "^2.1.0",
     "bluebird": "^3.4.7",
     "browserify-versionify": "^1.0.6",
     "chai": "^3.5.0",
