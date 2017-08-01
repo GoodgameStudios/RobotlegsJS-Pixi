@@ -5,7 +5,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 // ------------------------------------------------------------------------------
 
-import { DisplayObject } from "pixi.js";
+import { DisplayObject, Container } from "pixi.js";
 
 import { IMediatorMapping } from "../api/IMediatorMapping";
 import { MediatorFactory } from "./MediatorFactory";
@@ -98,10 +98,21 @@ export class MediatorManager {
         if ('destroy' in mediator)
             mediator.destroy();
 
-        if ('view' in mediator)
+        if ('view' in mediator) {
+            this.destroyView(mediator.view);
             mediator.view = null;
+        }
 
         if ('postDestroy' in mediator)
             mediator.postDestroy();
+    }
+
+    private destroyView(view: any): void {
+        if (view instanceof Container) {
+            while (view.children.length > 0) {
+                let child = view.removeChildAt(0);
+                this.destroyView(child);
+            }
+        }
     }
 }
