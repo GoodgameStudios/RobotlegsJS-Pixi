@@ -59,8 +59,8 @@ export class MediatorFactory {
      * @private
      */
     public createMediators(item: any, type: FunctionConstructor, mappings: any[]): any[] {
-        var createdMediators: any[] = [];
-        var mediator: any;
+        const createdMediators: any[] = [];
+        let mediator: any;
         for (let i in mappings) {
             let mapping: IMediatorMapping = mappings[i];
             mediator = this.getMediator(item, mapping);
@@ -81,7 +81,7 @@ export class MediatorFactory {
      * @private
      */
     public removeMediators(item: any): void {
-        var mediators: Map<any, IMediatorMapping> = this._mediators.get(item);
+        const mediators: Map<any, IMediatorMapping> = this._mediators.get(item);
         if (!mediators)
             return;
 
@@ -102,13 +102,13 @@ export class MediatorFactory {
     /*============================================================================*/
 
     private createMediator(item: any, mapping: IMediatorMapping): any {
-        var mediator: any = this.getMediator(item, mapping);
+        let mediator: any = this.getMediator(item, mapping);
 
         if (mediator)
             return mediator;
 
         if (mapping.guards.length == 0 || guardsApprove(mapping.guards, this._injector)) {
-            var mediatorClass: FunctionConstructor = mapping.mediatorClass;
+            const mediatorClass: FunctionConstructor = mapping.mediatorClass;
             mediator = instantiateUnmapped(this._injector, mediatorClass);
             if (mapping.hooks.length > 0) {
                 this._injector.bind(mediatorClass).toConstantValue(mediator);
@@ -145,7 +145,7 @@ export class MediatorFactory {
     }
 
     private requiredTypesFor(filter: ITypeFilter, type: FunctionConstructor): FunctionConstructor[] {
-        var requiredTypes: FunctionConstructor[] = filter.allOfTypes.concat(filter.anyOfTypes);
+        const requiredTypes: FunctionConstructor[] = filter.allOfTypes.concat(filter.anyOfTypes);
 
         if (requiredTypes.indexOf(type) == -1)
             requiredTypes.push(type);

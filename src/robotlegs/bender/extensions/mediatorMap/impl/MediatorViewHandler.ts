@@ -44,7 +44,7 @@ export class MediatorViewHandler implements IViewHandler {
      * @private
      */
     public addMapping(mapping: IMediatorMapping): void {
-        var index: number = this._mappings.indexOf(mapping);
+        const index: number = this._mappings.indexOf(mapping);
         if (index > -1)
             return;
         this._mappings.push(mapping);
@@ -55,7 +55,7 @@ export class MediatorViewHandler implements IViewHandler {
      * @private
      */
     public removeMapping(mapping: IMediatorMapping): void {
-        var index: number = this._mappings.indexOf(mapping);
+        const index: number = this._mappings.indexOf(mapping);
         if (index == -1)
             return;
         this._mappings.splice(index, 1);
@@ -66,7 +66,7 @@ export class MediatorViewHandler implements IViewHandler {
      * @private
      */
     public handleView(view: any, type: FunctionConstructor): void {
-        var interestedMappings = this.getInterestedMappingsFor(view, type);
+        const interestedMappings = this.getInterestedMappingsFor(view, type);
         if (interestedMappings)
             this._factory.createMediators(view, type, interestedMappings);
     }
@@ -75,7 +75,7 @@ export class MediatorViewHandler implements IViewHandler {
      * @private
      */
     public handleItem(item: Object, type: FunctionConstructor): void {
-        var interestedMappings = this.getInterestedMappingsFor(item, type);
+        const interestedMappings = this.getInterestedMappingsFor(item, type);
         if (interestedMappings)
             this._factory.createMediators(item, type, interestedMappings);
     }
@@ -89,8 +89,6 @@ export class MediatorViewHandler implements IViewHandler {
     }
 
     private getInterestedMappingsFor(item: Object, type: any): IMediatorMapping[] {
-        var mapping: IMediatorMapping;
-
         // we've seen this type before and nobody was interested
         if (this._knownMappings[type] === false)
             return null;

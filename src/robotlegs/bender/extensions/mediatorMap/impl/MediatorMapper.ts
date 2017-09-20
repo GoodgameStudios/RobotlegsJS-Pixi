@@ -82,7 +82,7 @@ export class MediatorMapper implements IMediatorMapper, IMediatorUnmapper {
     /*============================================================================*/
 
     private createMapping(mediatorClass: any): MediatorMapping {
-        var mapping: MediatorMapping = new MediatorMapping(this._typeFilter, mediatorClass);
+        const mapping: MediatorMapping = new MediatorMapping(this._typeFilter, mediatorClass);
         this._handler.addMapping(mapping);
         this._mappings[<any>mediatorClass] = mapping;
         this._logger && this._logger.debug('{0} mapped to {1}', [this._typeFilter, mapping]);

@@ -83,9 +83,9 @@ export class ManualStageObserver {
     private onConfigureView(event: ConfigureViewEvent): void {
         // Stop that event!
         event.stopImmediatePropagation();
-        var container: any = <any>event.currentTarget;
-        var view: any = <any>event.target;
-        var type: FunctionConstructor = view['constructor'];
+        const container: any = <any>event.currentTarget;
+        const view: any = <any>event.target;
+        const type: FunctionConstructor = view['constructor'];
         this._registry.getBinding(container).handleView(view, type);
     }
 }

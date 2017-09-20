@@ -14,8 +14,8 @@ import { IViewManager } from "../api/IViewManager";
 
 import { ViewManagerEvent } from "./ViewManagerEvent";
 
-import { ContainerRegistry } from "../impl/ContainerRegistry";
-import { ContainerBinding } from "../impl/ContainerBinding";
+import { ContainerRegistry } from "./ContainerRegistry";
+import { ContainerBinding } from "./ContainerBinding";
 
 /*[Event(name="containerAdd", type="robotlegs.bender.extensions.viewManager.impl.ViewManagerEvent")]*/
 /*[Event(name="containerRemove", type="robotlegs.bender.extensions.viewManager.impl.ViewManagerEvent")]*/
@@ -85,13 +85,13 @@ export class ViewManager extends EventDispatcher implements IViewManager {
      * @inheritDoc
      */
     public removeContainer(container: any): void {
-        var index: number = this._containers.indexOf(container);
+        const index: number = this._containers.indexOf(container);
         if (index == -1)
             return;
 
         this._containers.splice(index, 1);
 
-        var binding: ContainerBinding = this._registry.getBinding(container);
+        const binding: ContainerBinding = this._registry.getBinding(container);
         for (let i in this._handlers) {
             let handler: IViewHandler = this._handlers[i];
             binding.removeHandler(handler);
@@ -119,7 +119,7 @@ export class ViewManager extends EventDispatcher implements IViewManager {
      * @inheritDoc
      */
     public removeViewHandler(handler: IViewHandler): void {
-        var index: number = this._handlers.indexOf(handler);
+        const index: number = this._handlers.indexOf(handler);
         if (index == -1)
             return;
 
@@ -138,7 +138,7 @@ export class ViewManager extends EventDispatcher implements IViewManager {
     public removeAllHandlers(): void {
         for (let i in this._containers) {
             let container: any = this._containers[i];
-            var binding: ContainerBinding = this._registry.getBinding(container);
+            const binding: ContainerBinding = this._registry.getBinding(container);
             for (let j in this._handlers) {
                 let handler: IViewHandler = this._handlers[j];
                 binding.removeHandler(handler);
