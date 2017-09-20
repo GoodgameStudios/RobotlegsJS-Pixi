@@ -113,8 +113,7 @@ export class ContainerRegistry extends EventDispatcher {
         // Reparent any bindings which are contained within the new binding AND
         // A. Don't have a parent, OR
         // B. Have a parent that is not contained within the new binding
-        for (let i in this._bindingByContainer) {
-            let childBinding: ContainerBinding = this._bindingByContainer[i];
+        this._bindingByContainer.forEach(childBinding => {
             if (container.contains(childBinding.container)) {
                 if (!childBinding.parent) {
                     this.removeRootBinding(childBinding);
@@ -124,7 +123,7 @@ export class ContainerRegistry extends EventDispatcher {
                     childBinding.parent = binding;
                 }
             }
-        }
+        });
 
         this.dispatchEvent(new ContainerRegistryEvent(ContainerRegistryEvent.CONTAINER_ADD, binding.container));
         return binding;
@@ -132,7 +131,7 @@ export class ContainerRegistry extends EventDispatcher {
 
     private removeBinding(binding: ContainerBinding): void {
         // Remove the binding itself
-        delete this._bindingByContainer[binding.container];
+        this._bindingByContainer.delete(binding.container);
         var index: number = this._bindings.indexOf(binding);
         this._bindings.splice(index, 1);
 
@@ -145,8 +144,7 @@ export class ContainerRegistry extends EventDispatcher {
         }
 
         // Re-parent the bindings
-        for (let i in this._bindingByContainer) {
-            let childBinding: ContainerBinding = this._bindingByContainer[i];
+        this._bindingByContainer.forEach(childBinding => {
             if (childBinding.parent == binding) {
                 childBinding.parent = binding.parent;
                 if (!childBinding.parent) {
@@ -155,7 +153,7 @@ export class ContainerRegistry extends EventDispatcher {
                     this.addRootBinding(childBinding);
                 }
             }
-        }
+        });
 
         this.dispatchEvent(new ContainerRegistryEvent(ContainerRegistryEvent.CONTAINER_REMOVE, binding.container));
     }
