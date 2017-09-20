@@ -60,7 +60,7 @@ export class ManualStageObserverExtension implements IExtension {
         // Hark, an actual Singleton!
         if (!ManualStageObserverExtension._manualStageObserver) {
             // var containerRegistry: ContainerRegistry = this._injector.getInstance(ContainerRegistry);
-            var containerRegistry: ContainerRegistry = this._injector.get<ContainerRegistry>(ContainerRegistry);
+            const containerRegistry: ContainerRegistry = this._injector.get<ContainerRegistry>(ContainerRegistry);
             this._logger.debug("Creating genuine ManualStageObserver Singleton");
             ManualStageObserverExtension._manualStageObserver = new ManualStageObserver(containerRegistry);
         }

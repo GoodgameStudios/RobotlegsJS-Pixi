@@ -47,7 +47,7 @@ export class MediatorManager {
      * @private
      */
     public addMediator(mediator: any, item: any, mapping: IMediatorMapping): void {
-        var displayObject: DisplayObject = <DisplayObject>item;
+        const displayObject: DisplayObject = <DisplayObject>item;
 
         // Watch Display Object for removal
         if (displayObject && mapping.autoRemoveEnabled) {

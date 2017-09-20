@@ -11,8 +11,8 @@ import {
     IInjector
 } from "robotlegs";
 
-import { IViewManager } from "../viewManager/api/IViewManager";
-import { ViewManager } from "../viewManager/impl/ViewManager";
+import { IViewManager } from "./api/IViewManager";
+import { ViewManager } from "./impl/ViewManager";
 
 import { ContainerRegistry } from "./impl/ContainerRegistry";
 

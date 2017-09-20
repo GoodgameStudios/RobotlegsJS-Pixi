@@ -35,7 +35,7 @@ export class MediatorMap implements IMediatorMap, IViewHandler {
     /* Private Properties                                                         */
     /*============================================================================*/
 
-    private _mappers: Map<string, IMediatorMapper> = new Map<string, IMediatorMapper>();
+    private _mappers: Map<string, MediatorMapper> = new Map<string, MediatorMapper>();
 
     private _logger: ILogger;
 
@@ -68,9 +68,13 @@ export class MediatorMap implements IMediatorMap, IViewHandler {
      * @inheritDoc
      */
     public mapMatcher(matcher: ITypeMatcher): IMediatorMapper {
-        this._mappers[matcher.createTypeFilter().descriptor] =
-            this._mappers[matcher.createTypeFilter().descriptor] || this.createMapper(matcher);
-        return this._mappers[matcher.createTypeFilter().descriptor];
+        const desc = matcher.createTypeFilter().descriptor;
+        let mapper = this._mappers.get(desc);
+        if (mapper) return mapper;
+
+        mapper = this.createMapper(matcher);
+        this._mappers.set(desc, mapper);
+        return mapper;
     }
 
     /**
@@ -84,7 +88,7 @@ export class MediatorMap implements IMediatorMap, IViewHandler {
      * @inheritDoc
      */
     public unmapMatcher(matcher: ITypeMatcher): IMediatorUnmapper {
-        return this._mappers[matcher.createTypeFilter().descriptor] || this.NULL_UNMAPPER;
+        return this._mappers.get(matcher.createTypeFilter().descriptor) || this.NULL_UNMAPPER;
     }
 
     /**
@@ -126,7 +130,7 @@ export class MediatorMap implements IMediatorMap, IViewHandler {
     /* Private Functions                                                          */
     /*============================================================================*/
 
-    private createMapper(matcher: ITypeMatcher): IMediatorMapper {
+    private createMapper(matcher: ITypeMatcher): MediatorMapper {
         return new MediatorMapper(matcher.createTypeFilter(), this._viewHandler, this._logger);
     }
 }
