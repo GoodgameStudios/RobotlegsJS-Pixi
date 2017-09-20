@@ -38,7 +38,7 @@
   "homepage": "https://github.com/GoodgameStudios/RobotlegsJS-Pixi#readme",
   "dependencies": {
     "eventemitter3": "^2.0.3",
-    "pixi.js": "^4.5.4",
+    "pixi.js": "^4.5.5",
     "robotlegs": "^1.0.1"
   },
   "devDependencies": {
@@ -82,7 +82,7 @@
     "ts-loader": "^2.3.2",
     "ts-node": "^3.3.0",
     "tslint": "^5.5.0",
-    "typescript": "^2.4.2",
+    "typescript": "^2.5.2",
     "typescript-formatter": "^5.2.0",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.6.1"
