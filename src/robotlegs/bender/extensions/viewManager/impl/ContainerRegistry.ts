@@ -57,14 +57,19 @@ export class ContainerRegistry extends EventDispatcher {
      * @private
      */
     public addContainer(container: any): ContainerBinding {
-        return this._bindingByContainer[container] = this._bindingByContainer[container] || this.createBinding(container);
+        let binding = this._bindingByContainer.get(container);
+        if (binding) return binding;
+
+        binding = this.createBinding(container);
+        this._bindingByContainer.set(container, binding);
+        return binding;
     }
 
     /**
      * @private
      */
     public removeContainer(container: any): ContainerBinding {
-        const binding: ContainerBinding = this._bindingByContainer[container];
+        const binding: ContainerBinding = this._bindingByContainer.get(container);
         binding && this.removeBinding(binding);
         return binding;
     }
@@ -77,7 +82,7 @@ export class ContainerRegistry extends EventDispatcher {
     public findParentBinding(target: any): ContainerBinding {
         let parent: any = target.parent;
         while (parent) {
-            const binding: ContainerBinding = this._bindingByContainer[parent];
+            const binding: ContainerBinding = this._bindingByContainer.get(parent);
             if (binding) {
                 return binding;
             }
@@ -90,7 +95,7 @@ export class ContainerRegistry extends EventDispatcher {
      * @private
      */
     public getBinding(container: any): ContainerBinding {
-        return this._bindingByContainer[container];
+        return this._bindingByContainer.get(container);
     }
 
     /*============================================================================*/

@@ -56,7 +56,7 @@ export class MediatorMapper implements IMediatorMapper, IMediatorUnmapper {
      * @inheritDoc
      */
     public toMediator(mediatorClass: any): IMediatorConfigurator {
-        var mapping: IMediatorMapping = this._mappings[<any>mediatorClass];
+        const mapping: IMediatorMapping = this._mappings.get(mediatorClass);
         return mapping
             ? this.overwriteMapping(mapping)
             : this.createMapping(mediatorClass);
@@ -66,7 +66,7 @@ export class MediatorMapper implements IMediatorMapper, IMediatorUnmapper {
      * @inheritDoc
      */
     public fromMediator(mediatorClass: any): void {
-        var mapping: IMediatorMapping = this._mappings[<any>mediatorClass];
+        const mapping: IMediatorMapping = this._mappings.get(mediatorClass);
         mapping && this.deleteMapping(mapping);
     }
 
@@ -84,7 +84,7 @@ export class MediatorMapper implements IMediatorMapper, IMediatorUnmapper {
     private createMapping(mediatorClass: any): MediatorMapping {
         const mapping: MediatorMapping = new MediatorMapping(this._typeFilter, mediatorClass);
         this._handler.addMapping(mapping);
-        this._mappings[<any>mediatorClass] = mapping;
+        this._mappings.set(mediatorClass, mapping);
         this._logger && this._logger.debug('{0} mapped to {1}', [this._typeFilter, mapping]);
         return mapping;
     }

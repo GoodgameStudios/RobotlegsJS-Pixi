@@ -52,7 +52,8 @@ export class MediatorFactory {
      * @private
      */
     public getMediator(item: any, mapping: IMediatorMapping): any {
-        return this._mediators.get(item) ? this._mediators.get(item).get(<any>mapping) : null;
+        const mediators = this._mediators.get(item);
+        return mediators ? mediators.get(mapping) : null;
     }
 
     /**
